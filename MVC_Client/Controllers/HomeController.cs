@@ -13,12 +13,12 @@ namespace MVC_Client.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Home()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Details()
         {
             return View();
         }
