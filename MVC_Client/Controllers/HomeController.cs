@@ -28,5 +28,20 @@ namespace MVC_Client.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public ActionResult Location()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Location(LocationM location)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Home", "Home");
+            }
+            return View(location);
+        }
     }
 }
