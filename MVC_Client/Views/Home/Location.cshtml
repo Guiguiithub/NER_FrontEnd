@@ -34,7 +34,7 @@
 </div>
 
 <a asp-area="" asp-controller="Home" asp-action="InstallationDetail"><button>←</button></a>
-<a asp-area="" asp-controller="Home" asp-action="InstallationType"><button class="droite">→</button></a>
+<button type="submit" form="locationForm" class="droite">→</button>
 
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -57,7 +57,7 @@
                 if (response.results.some(result => result.attributes.adr_number === no)) {
                     // If address exists, submit the form
                     $('#locationForm').off('submit').submit();
-                    window.location.href = '/Home/Details';
+                    window.location.href = '/Home/InstallationType';
                 } else {
                     $('#validationMessage').text('Address does not exist. Please enter a valid address.');
                 }
