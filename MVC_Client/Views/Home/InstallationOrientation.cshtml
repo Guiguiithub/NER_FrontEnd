@@ -1,0 +1,38 @@
+﻿@model MVC_Client.Models.OrientationM
+
+@{
+    ViewData["Title"] = "InstallationOrientation";
+}
+
+<h4>Saisie de mon installation privée</h4>
+
+<h5>Orientation</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="InstallationOrientation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="azimutOrientation" class="control-label">Orientation du champ (azimut) [°]</label>
+                <input asp-for="azimutOrientation" class="form-control" type="number" min="10" max="60" />
+                <span asp-validation-for="azimutOrientation" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="tiltOrientation" class="control-label">Inclinaison de la toiture [°]</label>
+                <input asp-for="tiltOrientation" class="form-control" type="number" min="10" max="60" />
+                <span asp-validation-for="tiltOrientation" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

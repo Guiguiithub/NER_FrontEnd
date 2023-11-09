@@ -28,5 +28,17 @@ namespace MVC_Client.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        // Detail page for new installation
+        public ActionResult InstallationDetail()
+        {
+            return View();
+        }
+
+        // Orientation page for new installation
+        public ActionResult InstallationOrientation()
+        {
+            return View();
+        }
     }
 }
