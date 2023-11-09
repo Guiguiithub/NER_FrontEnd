@@ -16,3 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#disparu {
+    display: none;
+}
+
+.droite {
+    float: right;
+}
+
+.clear {
+    padding-bottom: 1vw;
+    clear: both;
+}
+
+.installationCreationBox {
+    margin: 3rem;
+    padding: 1rem;
+    border: 2px solid black;
+}
