@@ -48,5 +48,17 @@ namespace MVC_Client.Controllers
             }
             return View(location);
         }
+
+        // Detail page for new installation
+        public ActionResult InstallationDetail()
+        {
+            return View();
+        }
+
+        // Orientation page for new installation
+        public ActionResult InstallationOrientation()
+        {
+            return View();
+        }
     }
 }
