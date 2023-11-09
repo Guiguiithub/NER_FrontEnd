@@ -14,7 +14,7 @@ namespace MVC_Client.Models
 
         public LocationM() { }
 
-        public LocationM(string street, string no, int postcode, string city, IFormFile formFile)
+        public LocationM(string street, string no, int postcode, string city)
         {
             Street = street;
             No = no;
