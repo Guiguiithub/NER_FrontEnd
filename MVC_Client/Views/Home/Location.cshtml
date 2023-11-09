@@ -13,24 +13,24 @@
         <form asp-action="Location" id="locationForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Street" class="control-label"></label>
+                <label asp-for="Street" class="control-label">Rue</label>
                 <input asp-for="Street" class="form-control" />
                 <span asp-validation-for="Street" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="No" class="control-label"></label>
+                <label asp-for="No" class="control-label">No</label>
                 <input asp-for="No" class="form-control" />
                 <span asp-validation-for="No" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Postcode" class="control-label"></label>
+                <label asp-for="Postcode" class="control-label">Code postale</label>
                 <input asp-for="Postcode" class="form-control" />
                 <span asp-validation-for="Postcode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
                 <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
+                <span asp-validation-for="City" class="text-danger">Localité</span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -41,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-action="Details">Back to List</a>
+    <a asp-action="Details">Retour à la liste</a>
 </div>
 
 @section scripts {
