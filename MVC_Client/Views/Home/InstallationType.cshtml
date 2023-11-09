@@ -1,4 +1,5 @@
-﻿@{
+﻿@model MVC_Client.Models.InstallationTypeM
+@{
     ViewData["Title"] = "Type of Installation";
 }
 <script>
@@ -19,13 +20,13 @@
 </script>
 
 <h1>Saisie de mon installation privée</h1>
-<h6>Home > Installation privée</h6>
+<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 <div class="installationCreationBox">
-    <form>
+    <form id="typeForm">
         <h2>Energie renouvelable :</h2>
         <div class="droite">
             <div class="form-chek">
-                <input class="form-check-input" type="radio" name="energyType" value="eolien" id="eolienType" />
+                <input class="form-check-input" type="radio" name="energyType" value="eolien" id="eolienType" checked />
                 <label class="form-check-label">
                     Eolien
                 </label>
@@ -54,7 +55,7 @@
             <h2>Type d'intégration :</h2>
             <div class="droite">
                 <div class="form-chek">
-                    <input class="form-check-input" type="radio" name="integrationType" value="ajoutee" id="ajouteeType" />
+                    <input class="form-check-input" type="radio" name="integrationType" value="ajoutee" id="ajouteeType" checked />
                     <label class="form-check-label">
                         Ajoutée
                     </label>
@@ -70,7 +71,7 @@
             <h2>Type de cellules PV :</h2>
             <div class="droite">
                 <div class="form-chek">
-                    <input class="form-check-input" type="radio" name="cellsType" value="poly" id="polyType" />
+                    <input class="form-check-input" type="radio" name="cellsType" value="poly" id="polyType" checked />
                     <label class="form-check-label">
                         Polychristallin
                     </label>
@@ -86,3 +87,6 @@
         </div>
     </form>
 </div>
+
+<a asp-area="" asp-controller="Home" asp-action="Location"><button>←</button></a>
+<a asp-area="" asp-controller="Home" asp-action="InstallationOrientation"><button class="droite" type="submit" form="typeForm">→</button></a>

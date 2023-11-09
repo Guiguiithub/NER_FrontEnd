@@ -10,8 +10,6 @@ namespace MVC_Client.Models
         public int Postcode { get; set; }
         public string City { get; set; }
 
-        public IFormFile formFile { get; set; }
-
         public LocationM() { }
 
         public LocationM(string street, string no, int postcode, string city)
@@ -20,7 +18,6 @@ namespace MVC_Client.Models
             No = no;
             Postcode = postcode;
             City = city;
-            this.formFile = formFile;
         }
     }
 }

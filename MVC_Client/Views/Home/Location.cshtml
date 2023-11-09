@@ -4,45 +4,37 @@
     ViewData["Title"] = "Location";
 }
 
-<h1>Location</h1>
-
-<h4>LocationM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Location" id="locationForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Street" class="control-label">Rue</label>
-                <input asp-for="Street" class="form-control" />
-                <span asp-validation-for="Street" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="No" class="control-label">No</label>
-                <input asp-for="No" class="form-control" />
-                <span asp-validation-for="No" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Postcode" class="control-label">Code postale</label>
-                <input asp-for="Postcode" class="form-control" />
-                <span asp-validation-for="Postcode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger">Localité</span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <div id="validationMessage" style="color: red;"></div>
-        </form>
-    </div>
+<h1>Saisie de mon installation privée</h1>
+<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
+<div class="installationCreationBox">
+    <form asp-action="Location" id="locationForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Street" class="control-label">Rue</label>
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="No" class="control-label">No</label>
+            <input asp-for="No" class="form-control" />
+            <span asp-validation-for="No" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Postcode" class="control-label">Code postale</label>
+            <input asp-for="Postcode" class="form-control" />
+            <span asp-validation-for="Postcode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="City" class="control-label">Localité</label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div id="validationMessage" style="color: red;"></div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Details">Retour à la liste</a>
-</div>
+<a asp-area="" asp-controller="Home" asp-action="InstallationDetail"><button>←</button></a>
+<a asp-area="" asp-controller="Home" asp-action="InstallationType"><button class="droite" type="submit" form="locationForm">→</button></a>
 
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
