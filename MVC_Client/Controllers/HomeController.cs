@@ -60,5 +60,11 @@ namespace MVC_Client.Controllers
         {
             return View();
         }
+
+        // Surface page for new installation
+        public ActionResult InstallationSurface()
+        {
+            return View();
+        }
     }
 }
