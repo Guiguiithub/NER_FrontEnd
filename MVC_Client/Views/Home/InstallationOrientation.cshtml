@@ -11,12 +11,12 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group mb-3">
             <label asp-for="azimutOrientation" class="control-label">Orientation du champ (azimut) [°]</label>
-            <input asp-for="azimutOrientation" class="form-control" type="number" min="10" max="60" />
+            <input asp-for="azimutOrientation" class="form-control" type="number" min="0" max="360" />
             <span asp-validation-for="azimutOrientation" class="text-danger"></span>
         </div>
         <div class="form-group mb-3">
             <label asp-for="tiltOrientation" class="control-label">Inclinaison de la toiture [°]</label>
-            <input asp-for="tiltOrientation" class="form-control" type="number" min="10" max="60" />
+            <input asp-for="tiltOrientation" class="form-control" type="number" min="10" max="90" />
             <span asp-validation-for="tiltOrientation" class="text-danger"></span>
         </div>
     </form>
