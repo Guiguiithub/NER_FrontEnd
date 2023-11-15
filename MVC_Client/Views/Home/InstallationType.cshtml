@@ -6,6 +6,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         var energyTypeInputs = document.querySelectorAll('input[name="energyType"]');
         var disparuDiv = document.getElementById("disparu");
+        var form = document.getElementById("typeForm");
+        var nextButton = document.getElementById("nextButton");
 
         for (var i = 0; i < energyTypeInputs.length; i++) {
             energyTypeInputs[i].addEventListener("change", function () {
@@ -16,6 +18,10 @@
                 }
             });
         }
+        nextButton.addEventListener("click", function () {
+            // Submit the form
+            form.submit();
+        });
     });
 </script>
 

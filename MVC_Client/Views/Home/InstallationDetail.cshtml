@@ -25,7 +25,7 @@
     </form>
 </div>
 
-<a asp-area="" asp-controller="Home" asp-action="Location"><button class="droite">→</button></a>
+<button type="button" form="detailForm" class="droite" onclick="doSubmit()">→</button>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -40,4 +40,15 @@
         }
         reader.readAsDataURL(event.target.files[0]);
     }
+
+    function doSubmit(event) {
+        var description = $('#description').val();
+        var imageFile = $('#imageFile').val();
+
+        if (description.trim() !== '' && imageFile.trim() !== '') {
+            $('#detailForm').submit();
+            window.location.href = '/Home/Location';
+        }
+    }
+
 </script>
