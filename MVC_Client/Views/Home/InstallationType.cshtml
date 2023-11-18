@@ -1,7 +1,9 @@
-﻿@model MVC_Client.Models.InstallationTypeM
+﻿@model MVC_Client.Models.NewInstallationM
+
 @{
-    ViewData["Title"] = "Type of Installation";
+    ViewData["Title"] = "InstallationType";
 }
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var energyTypeInputs = document.querySelectorAll('input[name="energyType"]');
@@ -26,73 +28,94 @@
 </script>
 
 <h1>Saisie de mon installation privée</h1>
-<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
-<div class="installationCreationBox">
-    <form id="typeForm">
-        <h2>Energie renouvelable :</h2>
-        <div class="droite">
-            <div class="form-chek">
-                <input class="form-check-input" type="radio" name="energyType" value="eolien" id="eolienType" checked />
-                <label class="form-check-label">
-                    Eolien
-                </label>
-            </div>
-            <div class="form-chek">
-                <input class="form-check-input" type="radio" name="energyType" value="solaire" id="solaireType" />
-                <label class="form-check-label">
-                    Photovoltaïque
-                </label>
-            </div>
-            <div class="form-chek">
-                <input class="form-check-input" type="radio" name="energyType" value="bioGaz" id="bioGazType" />
-                <label class="form-check-label">
-                    Bio-gaz
-                </label>
-            </div>
-            <div class="form-chek">
-                <input class="form-check-input" type="radio" name="energyType" value="hydro" id="hydroType" />
-                <label class="form-check-label">
-                    Mini-hydraulique
-                </label>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <div id="disparu">
-            <h2>Type d'intégration :</h2>
-            <div class="droite">
-                <div class="form-chek">
-                    <input class="form-check-input" type="radio" name="integrationType" value="ajoutee" id="ajouteeType" checked />
-                    <label class="form-check-label">
-                        Ajoutée
-                    </label>
-                </div>
-                <div class="form-chek">
-                    <input class="form-check-input" type="radio" name="integrationType" value="integree" id="integreeType" />
-                    <label class="form-check-label">
-                        Intégrée
-                    </label>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <h2>Type de cellules PV :</h2>
-            <div class="droite">
-                <div class="form-chek">
-                    <input class="form-check-input" type="radio" name="cellsType" value="poly" id="polyType" checked />
-                    <label class="form-check-label">
-                        Polychristallin
-                    </label>
-                </div>
-                <div class="form-chek">
-                    <input class="form-check-input" type="radio" name="cellsType" value="mono" id="monoType" />
-                    <label class="form-check-label">
-                        Monochristallin
-                    </label>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </form>
-</div>
 
-<a asp-area="" asp-controller="Home" asp-action="Location"><button>←</button></a>
-<a asp-area="" asp-controller="Home" asp-action="InstallationOrientation"><button class="droite">→</button></a>
+<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
+<hr />
+<div class="row">
+    <div class="">
+        <form asp-action="InstallationTypeD">
+            <div class="installationCreationBox">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="description" type="hidden" />
+                <input asp-for="formFile" type="hidden" />
+                <input asp-for="street" type="hidden" />
+                <input asp-for="no" type="hidden" />
+                <input asp-for="postCode" type="hidden" />
+                <input asp-for="city" type="hidden" />
+                <input asp-for="coordinateX" type="hidden" />
+                <input asp-for="coordinateY" type="hidden" />
+                <input asp-for="azimutOrientation" type="hidden" />
+                <input asp-for="tiltOrientation" type="hidden" />
+                <h2>Energie renouvelable :</h2>
+                <div class="droite">
+                    <div class="form-chek">
+                        <input class="form-check-input" type="radio" name="energyType" value="eolien" id="eolienType" checked />
+                        <label class="form-check-label">
+                            Eolien
+                        </label>
+                    </div>
+                    <div class="form-chek">
+                        <input class="form-check-input" type="radio" name="energyType" value="solaire" id="solaireType" />
+                        <label class="form-check-label">
+                            Photovoltaïque
+                        </label>
+                    </div>
+                    <div class="form-chek">
+                        <input class="form-check-input" type="radio" name="energyType" value="bioGaz" id="bioGazType" />
+                        <label class="form-check-label">
+                            Bio-gaz
+                        </label>
+                    </div>
+                    <div class="form-chek">
+                        <input class="form-check-input" type="radio" name="energyType" value="hydro" id="hydroType" />
+                        <label class="form-check-label">
+                            Mini-hydraulique
+                        </label>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div id="disparu">
+                    <h2>Type d'intégration :</h2>
+                    <div class="droite">
+                        <div class="form-chek">
+                            <input class="form-check-input" type="radio" name="integrationType" value="ajoutee" id="ajouteeType" checked />
+                            <label class="form-check-label">
+                                Ajoutée
+                            </label>
+                        </div>
+                        <div class="form-chek">
+                            <input class="form-check-input" type="radio" name="integrationType" value="integree" id="integreeType" />
+                            <label class="form-check-label">
+                                Intégrée
+                            </label>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <h2>Type de cellules PV :</h2>
+                    <div class="droite">
+                        <div class="form-chek">
+                            <input class="form-check-input" type="radio" name="cellsType" value="poly" id="polyType" checked />
+                            <label class="form-check-label">
+                                Polychristallin
+                            </label>
+                        </div>
+                        <div class="form-chek">
+                            <input class="form-check-input" type="radio" name="cellsType" value="mono" id="monoType" />
+                            <label class="form-check-label">
+                                Monochristallin
+                            </label>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <input asp-for="length" type="hidden" />
+                <input asp-for="width" type="hidden" />
+            </div>
+            <div class="form-group">
+                <a type="button" class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="InstallationLocation">Back</a>
+                <input type="submit" value="Next" class="btn btn-primary droite" />
+            </div>
+        </form>
+    </div>
+</div>

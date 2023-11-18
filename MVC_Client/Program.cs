@@ -1,3 +1,5 @@
+using MVC_Client.Services;
+
 namespace MVC_Client
 {
     public class Program
@@ -8,6 +10,11 @@ namespace MVC_Client
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
+
+            builder.Services.AddHttpClient<INerServices, NerServices>();
+
 
             var app = builder.Build();
 
@@ -19,6 +26,7 @@ namespace MVC_Client
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

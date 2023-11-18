@@ -26,32 +26,72 @@ namespace MVC_Client.Controllers
             return View();
         }
 
+        // Detail page for new installation
+        public IActionResult InstallationDetail(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+        [HttpPost]
+        public IActionResult InstallationDetailD(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationLocation", newInstallation);
+        }
+
+        public IActionResult InstallationLocation(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+        [HttpPost]
+        public IActionResult InstallationLocationD(NewInstallationM newInstallation)
+        {
+            HttpContext.Session.SetString("PreviousPage", "/Home/InstallationLocation");
+            return RedirectToAction("InstallationType", newInstallation);
+        }
+
         public IActionResult InstallationType(NewInstallationM newInstallation)
         {
             return View(newInstallation);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult InstallationTypeD(NewInstallationM newInstallation)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public ActionResult InstallationLocation(NewInstallationM newInstallation)
-        {
-            return View(newInstallation);
-        }
-
-        // Detail page for new installation
-        public ActionResult InstallationDetail()
-        {
-            return View();
+            HttpContext.Session.SetString("PreviousPage", "/Home/InstallationType");
+            return RedirectToAction("InstallationOrientation", newInstallation);
         }
 
         // Orientation page for new installation
-        public ActionResult InstallationOrientation(NewInstallationM newInstallation)
+        public IActionResult InstallationOrientation(NewInstallationM newInstallation)
         {
             return View(newInstallation);
+        }
+
+        [HttpPost]
+        public IActionResult InstallationOrientationD(NewInstallationM newInstallation)
+        {
+            HttpContext.Session.SetString("PreviousPage", "/Home/InstallationOrientation");
+            return RedirectToAction("InstallationSurface", newInstallation);
+        }
+
+        [HttpPost]
+        public IActionResult GoPageOrientation(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationOrientation", newInstallation);
+        }
+        [HttpPost]
+        public IActionResult GoPageType(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationType", newInstallation);
+        }
+        [HttpPost]
+        public IActionResult GoPageLocation(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationLocation", newInstallation);
+        }
+        [HttpPost]
+        public IActionResult GoPageDetail(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationDetail", newInstallation);
         }
 
         [HttpPost]
@@ -63,6 +103,12 @@ namespace MVC_Client.Controllers
                 return RedirectToAction("Details");
             }
             return View(newInstallation);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
