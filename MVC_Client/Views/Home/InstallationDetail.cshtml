@@ -40,15 +40,4 @@
         }
         reader.readAsDataURL(event.target.files[0]);
     }
-
-    function doSubmit(event) {
-        var description = $('#description').val();
-        var imageFile = $('#imageFile').val();
-
-        if (description.trim() !== '' && imageFile.trim() !== '') {
-            $('#detailForm').submit();
-            window.location.href = '/Home/Location';
-        }
-    }
-
 </script>

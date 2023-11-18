@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Client.Models;
+using MVC_Client.Services;
 using System.Diagnostics;
 
 namespace MVC_Client.Controllers
@@ -7,10 +8,12 @@ namespace MVC_Client.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INerServices _nerServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INerServices nerServices)
         {
             _logger = logger;
+            _nerServices = nerServices;
         }
 
         public IActionResult Home()
@@ -23,9 +26,9 @@ namespace MVC_Client.Controllers
             return View();
         }
 
-        public IActionResult InstallationType()
+        public IActionResult InstallationType(NewInstallationM newInstallation)
         {
-            return View();
+            return View(newInstallation);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -34,19 +37,9 @@ namespace MVC_Client.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public ActionResult Location()
+        public ActionResult InstallationLocation(NewInstallationM newInstallation)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Location(LocationM location)
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Home", "Home");
-            }
-            return View(location);
+            return View(newInstallation);
         }
 
         // Detail page for new installation
@@ -56,9 +49,20 @@ namespace MVC_Client.Controllers
         }
 
         // Orientation page for new installation
-        public ActionResult InstallationOrientation()
+        public ActionResult InstallationOrientation(NewInstallationM newInstallation)
         {
-            return View();
+            return View(newInstallation);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewInstallationM newInstallation)
+        {
+            if (ModelState.IsValid)
+            {
+                await _nerServices.PostInstallation(newInstallation);
+                return RedirectToAction("Details");
+            }
+            return View(newInstallation);
         }
     }
 }
