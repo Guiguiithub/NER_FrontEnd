@@ -44,7 +44,6 @@ namespace MVC_Client.Controllers
         [HttpPost]
         public IActionResult InstallationLocationD(NewInstallationM newInstallation)
         {
-            HttpContext.Session.SetString("PreviousPage", "/Home/InstallationLocation");
             return RedirectToAction("InstallationType", newInstallation);
         }
 
@@ -56,7 +55,6 @@ namespace MVC_Client.Controllers
         [HttpPost]
         public IActionResult InstallationTypeD(NewInstallationM newInstallation)
         {
-            HttpContext.Session.SetString("PreviousPage", "/Home/InstallationType");
             return RedirectToAction("InstallationOrientation", newInstallation);
         }
 
@@ -69,8 +67,38 @@ namespace MVC_Client.Controllers
         [HttpPost]
         public IActionResult InstallationOrientationD(NewInstallationM newInstallation)
         {
-            HttpContext.Session.SetString("PreviousPage", "/Home/InstallationOrientation");
             return RedirectToAction("InstallationSurface", newInstallation);
+        }
+        
+        // Surface page for new installation
+        public ActionResult InstallationSurface(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> InstallationSurfaceD(NewInstallationM newInstallation)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                    await _nerServices.PostInstallation(newInstallation);
+                    return RedirectToAction("Details");
+                
+            }
+            else if (!ModelState.IsValid)
+            {
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine($"Error: {error.ErrorMessage}");
+                    }
+                }
+
+                return View(newInstallation);
+            }
+            return View(newInstallation);
         }
 
         [HttpPost]
@@ -92,17 +120,6 @@ namespace MVC_Client.Controllers
         public IActionResult GoPageDetail(NewInstallationM newInstallation)
         {
             return RedirectToAction("InstallationDetail", newInstallation);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(NewInstallationM newInstallation)
-        {
-            if (ModelState.IsValid)
-            {
-                await _nerServices.PostInstallation(newInstallation);
-                return RedirectToAction("Details");
-            }
-            return View(newInstallation);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

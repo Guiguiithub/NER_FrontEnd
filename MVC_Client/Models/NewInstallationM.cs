@@ -1,28 +1,30 @@
-﻿namespace MVC_Client.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVC_Client.Models
 {
     public class NewInstallationM
     {
-        public string description { get; set; }
-        public IFormFile formFile { get; set; }
-        public string street { get; set; }
-        public string no {  get; set; }
-        public int postCode { get; set; }
-        public string city { get; set; }
-        public double coordinateX { get; set; }
-        public double coordinateY { get; set; }
-        public int azimutOrientation { get; set; }
-        public int tiltOrientation { get; set; }
-        public string energyType { get; set; }
-        public string integrationType { get; set; }
-        public string cellsType { get; set; }
-        public double length { get; set; }
-        public double width { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
+        public string Street { get; set; }
+        public string No {  get; set; }
+        public int PostCode { get; set; }
+        public string City { get; set; }
+        public double CoordinateX { get; set; }
+        public double CoordinateY { get; set; }
+        public int AzimutOrientation { get; set; }
+        public int TiltOrientation { get; set; }
+        public string EnergyType { get; set; }
+        public string IntegrationType { get; set; }
+        public string CellsType { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
 
         public NewInstallationM() { }
         //set default values so that it doesn't fucked up
         public NewInstallationM(
             string description = null, 
-            IFormFile formFile = null, 
+            string imageFile = null, 
             string street = null, 
             string no = null, 
             int postCode = 0, 
@@ -38,21 +40,21 @@
             double width = 0.0
             )
         {
-            this.description = description;
-            this.formFile = formFile;
-            this.street = street;
-            this.no = no;
-            this.postCode = postCode;
-            this.city = city;
-            this.coordinateX = coordinateX;
-            this.coordinateY = coordinateY;
-            this.azimutOrientation = azimutOrientation;
-            this.tiltOrientation = tiltOrientation;
-            this.energyType = energyType;
-            this.integrationType = integrationType;
-            this.cellsType = cellsType;
-            this.length = length;
-            this.width = width;
+            this.Description = description;
+            this.Image = imageFile;
+            this.Street = street;
+            this.No = no;
+            this.PostCode = postCode;
+            this.City = city;
+            this.CoordinateX = coordinateX;
+            this.CoordinateY = coordinateY;
+            this.AzimutOrientation = azimutOrientation;
+            this.TiltOrientation = tiltOrientation;
+            this.EnergyType = energyType;
+            this.IntegrationType = integrationType;
+            this.CellsType = cellsType;
+            this.Length = length;
+            this.Width = width;
         }
     }
 }
