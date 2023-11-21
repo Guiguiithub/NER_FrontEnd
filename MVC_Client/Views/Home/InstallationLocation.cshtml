@@ -6,7 +6,7 @@
 
 <h1>Saisie de mon installation privée</h1>
 
-<h4>NewInstallationM</h4>
+<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 <hr />
 <div class="row">
     <div class="col-md-9">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="No" class="control-label"></label>
-                    <input asp-for="No" class="form-control" />
+                    <input asp-for="No" class="form-control" value="" />
                     <span asp-validation-for="No" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -46,8 +46,8 @@
                 <input asp-for="Width" type="hidden" />
             </div>
             <div class="form-group">
-                <a type="button" class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="InstallationDetail">Back</a>
-                <input type="submit" value="Next" class="btn btn-primary droite" />
+                <button><a class="noStyle" type="button" asp-area="" asp-controller="Home" asp-action="Details">←</a></button>
+                <input type="submit" value="→" class="droite borderTest" />
             </div>
         </form>
     </div>
@@ -61,6 +61,8 @@
 
             var address = $('#Street').val(); // Get the address input value
             var no = $('#No').val(); // Get the No input value
+            var postcode = $('#PostCode').val(); // Get the PostCode input value
+            var city = $('#City').val(); // Get the City input value
 
             // Make an AJAX request to the API to check if the address exists
             $.get('https://api3.geo.admin.ch/rest/services/api/MapServer/find', {
@@ -71,7 +73,7 @@
                 contains: false
             }).done(function (response) {
                 // Check the response from the API to determine address existence
-                if (response.results.some(result => result.attributes.adr_number === no)) {
+                if (response.results.some(result => result.attributes.adr_number === no) && response.results.some(result => result.attributes.zip_label === postcode + " " + city )) {
                     // If address exists, submit the form
                     $('#locationForm').off('submit').submit();
                 } else {

@@ -34,21 +34,18 @@
                 <input asp-for="CoordinateY" type="hidden" />
                 <input asp-for="AzimutOrientation" type="hidden" />
                 <input asp-for="TiltOrientation" type="hidden" />
-                <input asp-for="EnergyType" type="hidden" />
+                <input asp-for="EnergyType" type="hidden" id="energyChoosen" />
                 <input asp-for="IntegrationType" type="hidden" />
                 <input asp-for="CellsType" type="hidden" />
                 <input asp-for="Length" type="hidden" />
                 <input asp-for="Width" type="hidden" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Next" class="btn btn-primary droite" />
+                <button><a class="noStyle" type="button" id="backButton" asp-area="" asp-controller="Home" asp-action="InstallationLocation">←</a></button>
+                <input type="submit" value="→" class="droite borderTest" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
@@ -58,6 +55,16 @@
 }
 
 <script>
+    var pageToReturnTo;
+    var energyChoosen = '@Model.EnergyType';
+    if (energyChoosen == "solaire") {
+        pageToReturnTo = "InstallationSurface"
+    }
+    else {
+        pageToReturnTo = "InstallationType"
+    }
+    document.getElementById('backButton').href = '/Home/' + pageToReturnTo;
+
     var input = document.getElementById('UploadedImage');
 
     // You will receive the Base64 value every time a user selects a file from his device

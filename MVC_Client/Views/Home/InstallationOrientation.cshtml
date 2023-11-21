@@ -38,24 +38,9 @@
                 <input asp-for="Width" type="hidden" />
             </div>
             <div class="form-group">
-                <input value="Back" class="btn btn-primary" id="backButton" />
-                <input type="submit" value="Next" class="btn btn-primary droite" />
+                <button><a class="noStyle" type="button" asp-area="" asp-controller="Home" asp-action="InstallationType">←</a></button>
+                <input type="submit" value="→" class="droite borderTest" />
             </div>
         </form>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Other code...
-
-        var backButton = document.getElementById("backButton");
-
-        if (backButton) {
-            backButton.addEventListener("click", function () {
-                // Go back to the previous page
-                history.back();
-            });
-        }
-    });
-</script>

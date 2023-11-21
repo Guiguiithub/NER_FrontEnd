@@ -32,9 +32,28 @@ namespace MVC_Client.Controllers
             return View(newInstallation);
         }
         [HttpPost]
-        public IActionResult InstallationDetailD(NewInstallationM newInstallation)
+        public async Task<IActionResult> InstallationDetailDAsync(NewInstallationM newInstallation)
         {
-            return RedirectToAction("InstallationLocation", newInstallation);
+            if (ModelState.IsValid)
+            {
+
+                await _nerServices.PostInstallation(newInstallation);
+                return RedirectToAction("Details");
+
+            }
+            else if (!ModelState.IsValid)
+            {
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine($"Error: {error.ErrorMessage}");
+                    }
+                }
+
+                return View(newInstallation);
+            }
+            return View(newInstallation);
         }
 
         public IActionResult InstallationLocation(NewInstallationM newInstallation)
@@ -55,7 +74,14 @@ namespace MVC_Client.Controllers
         [HttpPost]
         public IActionResult InstallationTypeD(NewInstallationM newInstallation)
         {
-            return RedirectToAction("InstallationOrientation", newInstallation);
+            if(newInstallation.EnergyType.Equals("solaire"))
+            {
+                return RedirectToAction("InstallationOrientation", newInstallation);
+            }
+            else
+            {
+                return RedirectToAction("InstallationDetail", newInstallation);
+            }
         }
 
         // Orientation page for new installation
@@ -77,28 +103,9 @@ namespace MVC_Client.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> InstallationSurfaceD(NewInstallationM newInstallation)
+        public IActionResult InstallationSurfaceD(NewInstallationM newInstallation)
         {
-            if (ModelState.IsValid)
-            {
-               
-                    await _nerServices.PostInstallation(newInstallation);
-                    return RedirectToAction("Details");
-                
-            }
-            else if (!ModelState.IsValid)
-            {
-                foreach (var modelState in ViewData.ModelState.Values)
-                {
-                    foreach (var error in modelState.Errors)
-                    {
-                        Console.WriteLine($"Error: {error.ErrorMessage}");
-                    }
-                }
-
-                return View(newInstallation);
-            }
-            return View(newInstallation);
+            return RedirectToAction("InstallationDetail", newInstallation);
         }
 
         [HttpPost]

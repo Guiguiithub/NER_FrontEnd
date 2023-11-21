@@ -35,3 +35,12 @@ body {
     padding: 2rem;
     border: 2px solid black;
 }
+
+.noStyle {
+    text-decoration : none;
+    color: black;
+}
+
+.borderTest {
+    border: 2px solid black;
+}
