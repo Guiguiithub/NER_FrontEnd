@@ -1,30 +1,61 @@
-﻿@model MVC_Client.Models.OrientationM
+﻿@model MVC_Client.Models.NewInstallationM
+
 @{
     ViewData["Title"] = "InstallationOrientation";
 }
 
 <h1>Saisie de mon installation privée</h1>
-<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 
-<div class="installationCreationBox">
-    <form asp-action="InstallationOrientation" id="orientationForm">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group mb-3">
-            <label asp-for="azimutOrientation" class="control-label">Orientation du champ (azimut) [°]</label>
-            <input asp-for="azimutOrientation" class="form-control" type="number" min="0" max="360" />
-            <span asp-validation-for="azimutOrientation" class="text-danger"></span>
-        </div>
-        <div class="form-group mb-3">
-            <label asp-for="tiltOrientation" class="control-label">Inclinaison de la toiture [°]</label>
-            <input asp-for="tiltOrientation" class="form-control" type="number" min="10" max="90" />
-            <span asp-validation-for="tiltOrientation" class="text-danger"></span>
-        </div>
-    </form>
+<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
+<hr />
+<div class="row">
+    <div class="col-md-9">
+        <form asp-action="InstallationOrientationD">
+            <div class="installationCreationBox">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Description" type="hidden" />
+                <input asp-for="Image" type="hidden" />
+                <input asp-for="Street" type="hidden" />
+                <input asp-for="No" type="hidden" />
+                <input asp-for="PostCode" type="hidden" />
+                <input asp-for="City" type="hidden" />
+                <input asp-for="CoordinateX" type="hidden" />
+                <input asp-for="CoordinateY" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="AzimutOrientation" class="control-label">Orientation du champ (azimut) [°]</label>
+                    <input asp-for="AzimutOrientation" class="form-control" type="number" min="0" max="360" />
+                    <span asp-validation-for="AzimutOrientation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TiltOrientation" class="control-label">Inclinaison de la toiture [°]</label>
+                    <input asp-for="TiltOrientation" class="form-control" type="number" min="10" max="90" />
+                    <span asp-validation-for="TiltOrientation" class="text-danger"></span>
+                </div>
+                <input asp-for="EnergyType" type="hidden" />
+                <input asp-for="IntegrationType" type="hidden" />
+                <input asp-for="CellsType" type="hidden" />
+                <input asp-for="Length" type="hidden" />
+                <input asp-for="Width" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input value="Back" class="btn btn-primary" id="backButton" />
+                <input type="submit" value="Next" class="btn btn-primary droite" />
+            </div>
+        </form>
+    </div>
 </div>
 
-<a asp-area="" asp-controller="Home" asp-action="InstallationType"><button>←</button></a>
-<a asp-area="" asp-controller="Home" asp-action="InstallationSurface"><button class="droite">→</button></a>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Other code...
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        var backButton = document.getElementById("backButton");
+
+        if (backButton) {
+            backButton.addEventListener("click", function () {
+                // Go back to the previous page
+                history.back();
+            });
+        }
+    });
+</script>

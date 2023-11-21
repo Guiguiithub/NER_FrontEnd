@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Client.Models;
+using MVC_Client.Services;
 using System.Diagnostics;
 
 namespace MVC_Client.Controllers
@@ -7,10 +8,12 @@ namespace MVC_Client.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INerServices _nerServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INerServices nerServices)
         {
             _logger = logger;
+            _nerServices = nerServices;
         }
 
         public IActionResult Home()
@@ -23,48 +26,106 @@ namespace MVC_Client.Controllers
             return View();
         }
 
-        public IActionResult InstallationType()
+        // Detail page for new installation
+        public IActionResult InstallationDetail(NewInstallationM newInstallation)
         {
-            return View();
+            return View(newInstallation);
+        }
+        [HttpPost]
+        public IActionResult InstallationDetailD(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationLocation", newInstallation);
+        }
+
+        public IActionResult InstallationLocation(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+        [HttpPost]
+        public IActionResult InstallationLocationD(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationType", newInstallation);
+        }
+
+        public IActionResult InstallationType(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+
+        [HttpPost]
+        public IActionResult InstallationTypeD(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationOrientation", newInstallation);
+        }
+
+        // Orientation page for new installation
+        public IActionResult InstallationOrientation(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+
+        [HttpPost]
+        public IActionResult InstallationOrientationD(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationSurface", newInstallation);
+        }
+        
+        // Surface page for new installation
+        public ActionResult InstallationSurface(NewInstallationM newInstallation)
+        {
+            return View(newInstallation);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> InstallationSurfaceD(NewInstallationM newInstallation)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                    await _nerServices.PostInstallation(newInstallation);
+                    return RedirectToAction("Details");
+                
+            }
+            else if (!ModelState.IsValid)
+            {
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine($"Error: {error.ErrorMessage}");
+                    }
+                }
+
+                return View(newInstallation);
+            }
+            return View(newInstallation);
+        }
+
+        [HttpPost]
+        public IActionResult GoPageOrientation(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationOrientation", newInstallation);
+        }
+        [HttpPost]
+        public IActionResult GoPageType(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationType", newInstallation);
+        }
+        [HttpPost]
+        public IActionResult GoPageLocation(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationLocation", newInstallation);
+        }
+        [HttpPost]
+        public IActionResult GoPageDetail(NewInstallationM newInstallation)
+        {
+            return RedirectToAction("InstallationDetail", newInstallation);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public ActionResult Location()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Location(LocationM location)
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Home", "Home");
-            }
-            return View(location);
-        }
-
-        // Detail page for new installation
-        public ActionResult InstallationDetail()
-        {
-            return View();
-        }
-
-        // Orientation page for new installation
-        public ActionResult InstallationOrientation()
-        {
-            return View();
-        }
-
-        // Surface page for new installation
-        public ActionResult InstallationSurface()
-        {
-            return View();
         }
     }
 }

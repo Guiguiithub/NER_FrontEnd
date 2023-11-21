@@ -1,43 +1,80 @@
-﻿@model MVC_Client.Models.DetailM
+﻿@model MVC_Client.Models.NewInstallationM
 
 @{
     ViewData["Title"] = "InstallationDetail";
 }
 
 <h1>Saisie de mon installation privée</h1>
-<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 
-<div class="installationCreationBox">
-    <form asp-action="InstallationDetail" id="detailForm">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group mb-3">
-            <label asp-for="description" class="control-label">Description de l'installation</label>
-            <input asp-for="description" class="form-control" />
-            <span asp-validation-for="description" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="imageFile">Téléchargez une photo de votre installation</label>
-            <input asp-for="imageFile" type="file" id="imageFile" onchange="previewImage(event)" />
-        </div>
-        <div>
-            <img id="imagePreview" style="max-width: 100%; max-height: 300px;" />
-        </div>
-    </form>
+<h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
+<hr />
+<div class="row">
+    <div class="col-md-9">
+        <form asp-action="InstallationDetailD" method="post" enctype="multipart/form-data">
+            <div class="installationCreationBox">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Upload your image</label>
+                    <input id="UploadedImage" class="form-control" type="file" />
+                </div>
+                <div>
+                    <img id="imagePreview" style="max-width: 100%; max-height: 300px;" />
+                </div>
+                <input asp-for="Image" type="hidden" id="imageFileId" />
+                <input asp-for="Street" type="hidden" />
+                <input asp-for="No" type="hidden" />
+                <input asp-for="PostCode" type="hidden" />
+                <input asp-for="City" type="hidden" />
+                <input asp-for="CoordinateX" type="hidden" />
+                <input asp-for="CoordinateY" type="hidden" />
+                <input asp-for="AzimutOrientation" type="hidden" />
+                <input asp-for="TiltOrientation" type="hidden" />
+                <input asp-for="EnergyType" type="hidden" />
+                <input asp-for="IntegrationType" type="hidden" />
+                <input asp-for="CellsType" type="hidden" />
+                <input asp-for="Length" type="hidden" />
+                <input asp-for="Width" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Next" class="btn btn-primary droite" />
+            </div>
+        </form>
+    </div>
 </div>
 
-<a asp-area="" asp-controller="Home" asp-action="Location"><button class="droite">→</button></a>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
 <script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function () {
+    var input = document.getElementById('UploadedImage');
+
+    // You will receive the Base64 value every time a user selects a file from his device
+    // As an example I selected a one-pixel red dot GIF file from my computer
+    input.onchange = function () {
+        var file = input.files[0],
+            reader = new FileReader();
+
+        reader.onloadend = function () {
             var output = document.getElementById('imagePreview');
             output.src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
+            // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
+            var b64 = reader.result.replace(/^data:.+;base64,/, '');
+            console.log(b64);
+            document.getElementById("imageFileId").value = b64;
+        };
+
+        reader.readAsDataURL(file);
+    };
 </script>
