@@ -1,11 +1,80 @@
 ﻿@{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Nouvelles énergies renouvelables";
 }
-<h1>@ViewData["Title"]</h1>
 
-<div>
-    @Html.ActionLink("Ajouter une nouvelle installation", "InstallationDetail")
-</div>
-<div>
-    @Html.ActionLink("Ajouter une nouvelle surface", "InstallationSurface")
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #map-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #title {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        #map-and-controls {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5em;
+            width: 80%;
+        }
+
+        #map {
+            width: 70%;
+            height: 400px;
+        }
+
+        #controls-container {
+            position: relative;
+            align-items: flex-end;
+        }
+
+        #action-links {
+            margin-bottom: 10px;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+
+        #zoom-controls {
+            position: absolute;
+            bottom:0;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map-container">
+        <h1 id="title">@ViewData["Title"]</h1>
+        <div id="map-and-controls">
+            <div id="map"></div>
+            <div id="controls-container">
+                <div id="action-links">
+                    @Html.ActionLink("Ajouter une nouvelle installation", "InstallationDetail")<br />
+                    @Html.ActionLink("Ajouter une nouvelle surface", "InstallationSurface")
+                </div>
+                <div id="arrow-controls" class="leaflet-control-container"</div>
+                <div id="zoom-controls" class="leaflet-control-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/leaflet/leaflet.js"></script>
+    <script src="~/lib/leaflet/leaflet.min.js"></script>
+    <script>
+        var map = L.map('map').setView([46.3, 7.5333], 8);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        //document.getElementById('arrow-controls').appendChild(map.arrowControl.getContainer());
+        document.getElementById('zoom-controls').appendChild(map.zoomControl.getContainer());
+    </script>
+
+</body>
+</html>
