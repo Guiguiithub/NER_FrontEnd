@@ -76,6 +76,7 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         }).addTo(map);
+        document.getElementById('zoom-controls').appendChild(map.zoomControl.getContainer());
 
         // Define the projection for UTM Zone 32T
 
@@ -104,7 +105,10 @@
                 var imgElement = document.createElement('img');
                 imgElement.src = jsModel[i].image;
                 imgElement.alt = 'Image';
+                imgElement.width = 50;
+                imgElement.height = 28;
 
+                
                 // Append the image element to the popup content
                 popupContent.appendChild(imgElement);
             }
