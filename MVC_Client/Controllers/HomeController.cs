@@ -21,9 +21,10 @@ namespace MVC_Client.Controllers
             return View();
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details()
         {
-            return View();
+            var installations = await _nerServices.GetInstallations();
+            return View(installations);
         }
 
         // Detail page for new installation

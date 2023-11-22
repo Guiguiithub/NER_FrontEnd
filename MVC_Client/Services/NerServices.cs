@@ -17,5 +17,17 @@ namespace MVC_Client.Services
         {
             var response = await _httpClient.PostAsJsonAsync(_baseUrl + "/api/Installations", newInstallation);
         }
+
+        public async Task<List<NewInstallationM>> GetInstallations()
+        {
+            var response = await _httpClient.GetAsync(_baseUrl + "/api/Installations");
+            if(response.IsSuccessStatusCode)
+            {
+                var installations = await response.Content.ReadFromJsonAsync<List<NewInstallationM>>();
+                return installations;
+            }
+
+            return null;
+        }
     }
 }

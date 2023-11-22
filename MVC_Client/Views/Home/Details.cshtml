@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<MVC_Client.Models.NewInstallationM>
+@{
     ViewData["Title"] = "Nouvelles énergies renouvelables";
 }
 
@@ -46,6 +47,7 @@
             margin-top: 10px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
 </head>
 <body>
 
@@ -66,14 +68,51 @@
 
     <script src="~/lib/leaflet/leaflet.js"></script>
     <script src="~/lib/leaflet/leaflet.min.js"></script>
+    
+
     <script>
         var map = L.map('map').setView([46.3, 7.5333], 8);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         }).addTo(map);
-        //document.getElementById('arrow-controls').appendChild(map.arrowControl.getContainer());
-        document.getElementById('zoom-controls').appendChild(map.zoomControl.getContainer());
+
+        // Define the projection for UTM Zone 32T
+
+        proj4.defs("EPSG:21781", "+proj=somerc +lat_0=46.9524055555556 +lon_0=7.43958333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs +type=crs");
+
+        const sourceCRS = 'EPSG:21781';
+        const targetCRS = 'EPSG:4326';
+
+        // Function to transform coordinates
+        function transformCoordinates(coordinates) {
+            const transform = proj4(sourceCRS, targetCRS);
+            const transformedCoord = transform.forward(coordinates);
+            return [transformedCoord[1], transformedCoord[0]];
+        }
+        var jsModel = @Html.Raw(Json.Serialize(Model));
+
+        for (i in jsModel) {
+            console.log(jsModel[i])
+            var markerCoord = [jsModel[i].coordinateX, jsModel[i].coordinateY]
+            var transforCoord = transformCoordinates(markerCoord);
+            var popupContent = document.createElement('div');
+
+            // Check if there is an image URL in the jsModel item
+            if (jsModel[i].imageUrl) {
+                // Create an image element and set its source to the imageUrl
+                var imgElement = document.createElement('img');
+                imgElement.src = jsModel[i].image;
+                imgElement.alt = 'Image';
+
+                // Append the image element to the popup content
+                popupContent.appendChild(imgElement);
+            }
+
+            var point = L.marker(transforCoord).addTo(map);
+            point.bindPopup(jsModel[i].energyType + "<br>" + '<img src="data:image/png;base64,' + jsModel[i].image + '"/>' + "<br>" + jsModel[i].description).openPopup();
+        }
+
     </script>
 
 </body>
