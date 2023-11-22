@@ -46,6 +46,14 @@
             bottom:0;
             margin-top: 10px;
         }
+        .imagesize {
+            width: 75%;
+        }
+
+        .text {
+            font-weight: bold;
+            font-size:medium;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
 </head>
@@ -78,8 +86,22 @@
         }).addTo(map);
         document.getElementById('zoom-controls').appendChild(map.zoomControl.getContainer());
 
-        // Define the projection for UTM Zone 32T
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize: [20, 20]
+            }
+        });
 
+        var hydrauIcon = new LeafIcon({ iconUrl: '../../Images/hydraulic.png' }),
+            eolienIcon = new LeafIcon({ iconUrl: '../../Images/eolien.png' }),
+            solarIcon = new LeafIcon({ iconUrl: '../../Images/solarPanel.png' }),
+            biogasIcon = new LeafIcon({ iconUrl: '../../Images/biogas.png' });
+
+        L.icon = function (options) {
+            return new L.Icon(options);
+        };
+        
+        //Define the EPSG of the api because it's depricated
         proj4.defs("EPSG:21781", "+proj=somerc +lat_0=46.9524055555556 +lon_0=7.43958333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs +type=crs");
 
         const sourceCRS = 'EPSG:21781';
@@ -93,28 +115,31 @@
         }
         var jsModel = @Html.Raw(Json.Serialize(Model));
 
+        //loop to set everything into the map
         for (i in jsModel) {
             console.log(jsModel[i])
             var markerCoord = [jsModel[i].coordinateX, jsModel[i].coordinateY]
             var transforCoord = transformCoordinates(markerCoord);
-            var popupContent = document.createElement('div');
+            var point;
 
-            // Check if there is an image URL in the jsModel item
-            if (jsModel[i].imageUrl) {
-                // Create an image element and set its source to the imageUrl
-                var imgElement = document.createElement('img');
-                imgElement.src = jsModel[i].image;
-                imgElement.alt = 'Image';
-                imgElement.width = 50;
-                imgElement.height = 28;
-
-                
-                // Append the image element to the popup content
-                popupContent.appendChild(imgElement);
+            if (jsModel[i].energyType == "solaire") {
+                point = L.marker(transforCoord, {icon: solarIcon}).addTo(map);
             }
-
-            var point = L.marker(transforCoord).addTo(map);
-            point.bindPopup(jsModel[i].energyType + "<br>" + '<img src="data:image/png;base64,' + jsModel[i].image + '"/>' + "<br>" + jsModel[i].description).openPopup();
+            else if (jsModel[i].energyType == "eolien") {
+                point = L.marker(transforCoord, { icon: eolienIcon }).addTo(map);
+            }
+            else if (jsModel[i].energyType == "hydro") {
+                point = L.marker(transforCoord, { icon: hydrauIcon }).addTo(map);
+            }
+            else {
+                point = L.marker(transforCoord, { icon: biogasIcon }).addTo(map);
+            }
+            point.bindPopup(
+                '<div class="text">' + jsModel[i].energyType + '<div/>' +
+                "<br>" + 
+                '<img src="data:image/png;base64,' + jsModel[i].image + '" class="imagesize" />' + 
+                "<br>" + 
+                jsModel[i].description).openPopup();
         }
 
     </script>
