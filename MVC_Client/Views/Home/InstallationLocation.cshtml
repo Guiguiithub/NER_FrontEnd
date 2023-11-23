@@ -9,7 +9,28 @@
 <h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 <hr />
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-3 no_padding">
+        <div class="installationNav">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li>
+                    <a href="#" class="nav-lien actif">Location</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien indisponible">Type</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien indisponible">Orientation</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien indisponible">Surface</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien indisponible">Details</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6 no_padding">
         <form asp-action="InstallationLocationD" method="post" id="locationForm">
             <div class="installationCreationBox">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -35,8 +56,8 @@
                     <input asp-for="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
-                <input asp-for="CoordinateX" type="hidden" />
-                <input asp-for="CoordinateY" type="hidden" />
+                <input asp-for="CoordinateX" type="hidden" id="CoordX" />
+                <input asp-for="CoordinateY" type="hidden" id="CoordY" />
                 <input asp-for="AzimutOrientation" type="hidden" />
                 <input asp-for="TiltOrientation" type="hidden" />
                 <input asp-for="EnergyType" type="hidden" />
@@ -73,7 +94,6 @@
             }).done(function (response) {
                 // Check the response from the API to determine address existence
                 if (response.results.some(result => result.attributes.adr_number === no) && response.results.some(result => result.attributes.zip_label === postcode + " " + city )) {
-                    
                     var coordinates = response.results.find(result => result.geometry && result.geometry.x && result.geometry.y);
                     if (coordinates) {
                         document.getElementById("CoordX").value = coordinates.geometry.x;
