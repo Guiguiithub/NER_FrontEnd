@@ -65,10 +65,10 @@
             <div id="map"></div>
             <div id="controls-container">
                 <div id="action-links">
-                    @Html.ActionLink("Ajouter une nouvelle installation", "InstallationDetail")<br />
-                    @Html.ActionLink("Ajouter une nouvelle surface", "InstallationSurface")
+                    Ajouter une nouvelle installation
+                    <button onclick="location.href='@Url.Action("InstallationDetail", "Home" )'" class="btn btn-secondary btn-square-md">+</button>
                 </div>
-                <div id="arrow-controls" class="leaflet-control-container"</div>
+                <div id="arrow-controls" class="leaflet-control-container"></div>
                 <div id="zoom-controls" class="leaflet-control-container"></div>
             </div>
         </div>
@@ -139,8 +139,11 @@
                 "<br>" + 
                 '<img src="data:image/png;base64,' + jsModel[i].image + '" class="imagesize" />' + 
                 "<br>" + 
-                jsModel[i].description).openPopup();
+                jsModel[i].description
+            ).openPopup();
         }
+        //set the map view into Valais
+        map.setView([46.3, 7.5333]);
 
     </script>
 
