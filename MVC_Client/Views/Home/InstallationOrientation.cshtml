@@ -9,7 +9,28 @@
 <h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 <hr />
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-3 no_padding">
+        <div class="installationNav">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="InstallationLocation" class="nav-lien">Location</a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="InstallationType" class="nav-lien">Type</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien actif">Orientation</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien indisponible">Surface</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien indisponible">Details</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6 no_padding">
         <form asp-action="InstallationOrientationD">
             <div class="installationCreationBox">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,24 +59,9 @@
                 <input asp-for="Width" type="hidden" />
             </div>
             <div class="form-group">
-                <input value="Back" class="btn btn-primary" id="backButton" />
-                <input type="submit" value="Next" class="btn btn-primary droite" />
+                <button><a class="noStyle" type="button" asp-area="" asp-controller="Home" asp-action="InstallationType">←</a></button>
+                <input type="submit" value="→" class="droite borderTest" />
             </div>
         </form>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Other code...
-
-        var backButton = document.getElementById("backButton");
-
-        if (backButton) {
-            backButton.addEventListener("click", function () {
-                // Go back to the previous page
-                history.back();
-            });
-        }
-    });
-</script>

@@ -31,7 +31,70 @@ body {
 }
 
 .installationCreationBox {
-    margin: 3rem;
+    margin: 0;
+    margin-bottom: 2rem;
     padding: 2rem;
     border: 2px solid black;
+}
+
+.noStyle {
+    text-decoration : none;
+    color: black;
+}
+
+.borderTest {
+    border: 2px solid black;
+}
+
+.nav-lien.actif {
+    background-color: white;
+    color: black;
+}
+
+.nav-lien.indisponible:hover {
+    color: black;
+    background-color: #cccccc;
+}
+
+.nav-lien:hover {
+    color: black;
+    background-color: white;
+}
+
+.nav-lien {
+    color: black;
+    background-color: #cccccc;
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    margin-bottom: 0.2rem;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+}
+
+.no_padding {
+    padding: 0;
+}
+
+#saveTest {
+    background-image: url("../../Images/save.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+#imageContainer {
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.no_border {
+    border: 0;
 }

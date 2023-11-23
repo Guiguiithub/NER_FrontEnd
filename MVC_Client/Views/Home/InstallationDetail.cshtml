@@ -9,7 +9,28 @@
 <h6><a asp-area="" asp-controller="Home" asp-action="Home">Home</a> > Installation privée</h6>
 <hr />
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-3 no_padding">
+        <div class="installationNav">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="InstallationLocation" class="nav-lien">Location</a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="InstallationType" class="nav-lien">Type</a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="InstallationOrientation" class="nav-lien" id="orientationButton">Orientation</a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="InstallationSurface" class="nav-lien" id="surfaceButton">Surface</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-lien actif">Details</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6 no_padding">
         <form asp-action="InstallationDetailD" method="post" enctype="multipart/form-data">
             <div class="installationCreationBox">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -34,21 +55,18 @@
                 <input asp-for="CoordinateY" type="hidden" />
                 <input asp-for="AzimutOrientation" type="hidden" />
                 <input asp-for="TiltOrientation" type="hidden" />
-                <input asp-for="EnergyType" type="hidden" />
+                <input asp-for="EnergyType" type="hidden" id="energyChoosen" />
                 <input asp-for="IntegrationType" type="hidden" />
                 <input asp-for="CellsType" type="hidden" />
                 <input asp-for="Length" type="hidden" />
                 <input asp-for="Width" type="hidden" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Next" class="btn btn-primary droite" />
+                <button><a class="noStyle" type="button" id="backButton" asp-area="" asp-controller="Home" asp-action="InstallationLocation">←</a></button>
+                <div id="imageContainer" class="droite borderTest"><input type="submit" value="" class="no_border" id="saveTest" /></div>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
@@ -58,10 +76,29 @@
 }
 
 <script>
+    var pageToReturnTo;
+    var linkForSurface;
+    var linkForOrientation;
+    var energyChoosen = document.getElementById('energyChoosen').value;
+    if (energyChoosen == "solaire") {
+        pageToReturnTo = "InstallationSurface";
+        linkForSurface = "/Home/InstallationSurface";
+        linkForOrientation = "/Home/InstallationOrientation";
+    }
+    else {
+        pageToReturnTo = "InstallationType";
+        linkForSurface = "/Home/InstallationDetail/#";
+        linkForOrientation = "/Home/InstallationDetail/#";
+        document.getElementById('surfaceButton').classList.add('indisponible');
+        document.getElementById('orientationButton').classList.add('indisponible');
+    }
+    document.getElementById('backButton').href = '/Home/' + pageToReturnTo;
+    document.getElementById('surfaceButton').href = linkForSurface;
+    document.getElementById('orientationButton').href = linkForOrientation;
+
     var input = document.getElementById('UploadedImage');
 
     // You will receive the Base64 value every time a user selects a file from his device
-    // As an example I selected a one-pixel red dot GIF file from my computer
     input.onchange = function () {
         var file = input.files[0],
             reader = new FileReader();
