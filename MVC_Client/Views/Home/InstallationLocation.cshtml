@@ -69,11 +69,16 @@
                 layer: 'ch.swisstopo.amtliches-gebaeudeadressverzeichnis',
                 searchText: address,
                 searchField: 'stn_label',
-                returnGeometry: false,
                 contains: false
             }).done(function (response) {
                 // Check the response from the API to determine address existence
                 if (response.results.some(result => result.attributes.adr_number === no) && response.results.some(result => result.attributes.zip_label === postcode + " " + city )) {
+                    
+                    var coordinates = response.results.find(result => result.geometry && result.geometry.x && result.geometry.y);
+                    if (coordinates) {
+                        document.getElementById("CoordX").value = coordinates.geometry.x;
+                        document.getElementById("CoordY").value = coordinates.geometry.y;
+                    }
                     // If address exists, submit the form
                     $('#locationForm').off('submit').submit();
                 } else {
